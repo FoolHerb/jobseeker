@@ -4,7 +4,7 @@
 
 登陆界面
 
-![login](images/login.jpg)
+<img src="http:..." width = 30% height = 30% />![login](images/login.jpg)
 
 主界面
 
