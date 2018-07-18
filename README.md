@@ -7,6 +7,7 @@
 <img src="images/login.jpg" width = 30% height = 30% />
 
 主界面
+
 <img src="images/index.jpg" width = 30% height = 30% />
 
 招聘信息
