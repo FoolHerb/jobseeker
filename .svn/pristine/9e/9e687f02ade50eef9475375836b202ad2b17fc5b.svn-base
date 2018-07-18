@@ -1,0 +1,19 @@
+package cn.tentact.nebula.mongo.dao
+
+import java.util.Map
+import org.springframework.stereotype.Repository
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.mongodb.core.MongoTemplate
+import org.bson.Document
+
+@Repository
+class CompanyMongoDao implements I_CompanyMongoDao{
+	
+	@Autowired
+	MongoTemplate mongo;
+	
+	override insert(Document document) {
+		mongo.insert(document , "company");
+	}
+	
+}

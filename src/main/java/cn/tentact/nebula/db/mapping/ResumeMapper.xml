@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tentact.nebula.db.dao.I_ResumeDao">
+	<select id="searchMyResumeId" parameterType="String" resultType="Integer">
+		SELECT 
+			r.id 
+		FROM 
+			user u 
+		JOIN resume r 
+		ON 
+			u.id=r.user_id 
+		WHERE
+			u.username=#{username}
+	</select>
+	<select id="searchResume" parameterType="int" resultType="Map">
+		SELECT 
+			*
+		from 
+			resume
+		WHERE
+			resume.user_id = #{user_id}
+	</select>
+	
+	<update id="updateResume" parameterType="Map">
+	  UPDATE `resume`
+		SET 
+		name = #{name},
+ 		sex = #{sex},
+ 		Date = #{Date},
+ 		height = #{height},
+ 		weight = #{weight},
+		marry = #{marry},
+		city = #{city},
+		education = #{education},
+ 		tel = #{tel},
+ 		email = #{email},
+ 		position = #{position},
+		place = #{place},
+		money = #{money},
+		worktime = #{worktime}
+	WHERE
+		user_id = #{userId}
+
+	</update>
+	<insert id="insertResume" parameterType="Map">
+	INSERT INTO `resume` (
+	`id`,
+	`name`,
+	`user_id`,
+	`state`,
+	`auth`
+)
+VALUES
+	(
+		NEXT VALUE FOR MYCATSEQ_RESUME,
+		#{username},
+		#{userId},
+		'开放',
+		'未认证'
+	);
+	</insert>
+</mapper>

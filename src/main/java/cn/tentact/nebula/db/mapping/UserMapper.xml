@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tentact.nebula.db.dao.I_UserDao">
+	<select id="login" parameterType="Map" resultType="long">
+		SELECT
+			COUNT(*) AS count
+		FROM 
+			user
+		WHERE
+			username = #{username}
+		AND 
+			PASSWORD = HEX(AES_ENCRYPT(#{password}, "jonseeker"))
+		AND 
+			locked = FALSE;
+	</select>
+	<select id="forgetPassword" parameterType="String" resultType="Map">
+		SELECT 
+		    cast(AES_DECRYPT(UNHEX(password),"jonseeker") as CHAR(255)) as password , email
+		FROM 
+			`user`
+		where 
+			username = #{key} or email = #{key}
+	</select>
+	<select id="searchId" parameterType="String" resultType="Integer">
+	select id from user where username = #{username}
+	</select>
+	<select id="searchEmail" parameterType="String" resultType="String">
+	select email from user where username = #{username}
+	</select>
+	<update id="updateEmail" parameterType="Map">
+		UPDATE user
+		SET email = #{email}
+		WHERE
+			username = #{username}
+	</update>
+	<insert id="register" parameterType="Map">
+	INSERT IGNORE INTO user (
+		id,
+		username,
+		password,
+		role_id,
+		create_time,
+		locked
+		)
+		VALUES
+		(
+			NEXT VALUE FOR MYCATSEQ_USER,
+			#{username},
+			HEX(AES_ENCRYPT(#{password},"jonseeker")),
+			1,
+			CURRENT_TIMESTAMP,
+			0
+		);
+	</insert>
+</mapper>

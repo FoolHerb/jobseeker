@@ -1,0 +1,17 @@
+package cn.tentact.nebula.company
+
+import org.springframework.stereotype.Service
+import org.springframework.beans.factory.annotation.Autowired
+import cn.tentact.nebula.db.dao.I_CompanyDao
+
+@Service
+class CompanyService implements I_CompanyService{
+	@Autowired
+	I_CompanyDao companyDao;
+	
+	override searchCompany(int companyId) {
+		var map = companyDao.searchCompany(companyId);
+		return map;	
+	}
+	
+}

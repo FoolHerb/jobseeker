@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tentact.nebula.db.dao.I_CompanyDao">
+	<select id="searchCompany" parameterType="int" resultType="map">
+		SELECT
+		c.`name`,
+		c.scale,
+		c.type,
+		c.serverType,
+		c.address
+		FROM
+		company AS c
+		WHERE
+		c.id = #{companyId}
+	</select>
+</mapper>

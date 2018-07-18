@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tentact.nebula.db.dao.I_RecruitDao">
+	<select id="searchRecruit" parameterType="Map" resultType="Map">
+	SELECT
+		r.id,
+		r.job,
+		r.salary,
+		r.city,
+		r.welfare,
+		r.education,
+		DATE_FORMAT(r.date, "%Y/%m/%d") AS date,
+		c.`name`,
+		rr.id is not null as sended
+	FROM
+		recruit AS r
+	LEFT JOIN recruit_resume rr on rr.recruit_id = r.id and rr.resume_id = #{resumeId}
+	LEFT JOIN company AS c ON r.company_id = c.id
+
+ORDER BY
+	r.date DESC
+LIMIT #{start},
+ #{count}
+	</select>
+	
+		<select id="searchRecruitByKeyWord" parameterType="Map" resultType="Map">
+	SELECT
+		r.id,
+		r.job,
+		r.salary,
+		r.city,
+		r.welfare,
+		r.education,
+		DATE_FORMAT(r.date, "%Y/%m/%d") AS date,
+		c.`name`,
+		rr.id is not null as sended
+	FROM
+		recruit AS r
+	LEFT JOIN recruit_resume rr on rr.recruit_id = r.id and rr.resume_id = #{resumeId}
+	LEFT JOIN company AS c ON r.company_id = c.id
+WHERE r.city like CONCAT("%",#{key},"%") or r.job like CONCAT("%",#{key},"%") or c.name like CONCAT("%",#{key},"%")
+ORDER BY
+	r.date DESC
+	LIMIT #{start},
+ #{count}
+	</select>
+	
+	<select id="searchOneRecruit" parameterType="int" resultType="Map">
+		SELECT
+		c.`name`,
+		c.scale,
+		c.type,
+		c.serverType,
+		c.id,
+		r.job,
+		r.salary,
+		r.city,
+		r.education,
+		r.welfare,
+		DATE_FORMAT(r.date, "%m/%d") AS date
+		FROM
+		company AS c
+		INNER JOIN recruit AS r ON c.id = r.company_id
+		WHERE
+		r.id = #{recruitId}
+	</select>
+	
+	<select id="recruitCount" resultType="int">
+	SELECT
+		count(*) AS count
+	FROM
+		recruit	
+	</select>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tentact.nebula.db.dao.I_UserLevelDao">
+	<select id="searchExp" parameterType="String" resultType="int">
+		SELECT
+			ul.exp
+		FROM
+			`user` AS u
+		INNER JOIN 
+			user_level AS ul 
+		ON 
+			u.id = ul.user_id
+		WHERE
+			u.username = #{username}
+	</select>
+	
+	<update id="updateExp" parameterType="Map">
+	  UPDATE 
+	  	user_level 
+	  set 
+	  	exp = exp + #{exp} 
+	  where 
+	  	user_id = #{userId}
+	</update>
+	<insert id="insertUserLevel" parameterType="int">
+		INSERT IGNORE INTO user_level (id, user_id, exp)
+		VALUES
+		(
+			next VALUE FOR MYCATSEQ_USER_LEVEL,
+			#{userId},
+			100
+		);
+	</insert>
+</mapper>
