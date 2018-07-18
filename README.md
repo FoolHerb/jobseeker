@@ -4,20 +4,19 @@
 
 登陆界面
 
-<img src="images/login.jpg" width = 30% height = 30% />![login]
+<img src="images/login.jpg" width = 30% height = 30% />
 
 主界面
-
-![index](images/index.jpg)
+<img src="images/index.jpg" width = 30% height = 30% />
 
 招聘信息
 
-![recruit](images/recruit.jpg)
+<img src="images/recruit.jpg" width = 30% height = 30% />
 
 职位详情
 
-![job_detail](images/job_detail.jpg)
+<img src="images/job_detail.jpg" width = 30% height = 30% />
 
 公司详情
 
-![company_detail]()images/company_detail.jpg)
+<img src="images/company_detail.jpg" width = 30% height = 30% />
