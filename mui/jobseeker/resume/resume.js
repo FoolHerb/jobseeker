@@ -1,0 +1,759 @@
+mui.ready(function(){
+	var changeable = false;
+	
+	//输入框的确定与取消
+	var btnArray = ['确定', '取消'];
+	//设置性别的弹出框
+	verPicker = new mui.PopPicker();
+	verPicker.setData(versex);
+	//alert(JSON.stringify(versex));
+	
+	//设置日期的选择框
+	var dtpick = new mui.DtPicker({
+			type:"date",//设置日历初始视图模式
+			beginDate:new Date(1950,01,01),
+			endDate:new Date(2010,01,01)
+	})
+	//毕业日期的选择
+	var gradepick = new mui.DtPicker({
+		type:"month",
+		beginDate:new Date(1959,01),
+		endDate:new Date(2018,07)
+	})
+	//身高的设置
+	verHeight = new mui.PopPicker();
+	verHeight.setData(verheight);
+	//设置体重
+	verWeight = new mui.PopPicker();
+	verWeight.setData(verweight);
+	//设置婚姻
+	verMarry = new mui.PopPicker();
+	verMarry.setData(vermarry);
+	//设置城市的选择
+	var cityPicker = new mui.PopPicker({
+		layer: 2
+	});
+	cityPicker.setData(cityData);
+	//设置学历的选项
+	var eduPicker = new mui.PopPicker();
+	eduPicker.setData(veredu);
+	//入职时间的设置
+	timepicker = new mui.PopPicker();
+	timepicker.setData(vertime);
+	
+	//vue的设置部分
+	var vm = new Vue({
+		el:"#info",
+		data:{
+		name:"",
+		sex:"",
+		Date:"",
+		height:0,
+		weight:0,
+		marry:"",
+		city:"",
+		education:"",
+		tel:"",
+		email:"",
+		eduexpnum:0,
+		workexpnum:0,
+		eduexp:[],
+		workexp:[],
+		selfintro:'<p style="">dsadsadasdsaad</p>',
+		tech:"",
+		techexp:"",
+		place:"",
+		money:"",
+		position:"",
+		worktime:""
+		},
+		methods:{
+			change:function(){
+				var ref = this;
+				if(changeable == false)
+				{
+					document.getElementById("changebutton").innerText = "完成";
+					changeable = true;
+				}else{
+					document.getElementById("changebutton").innerText = "修改";
+					changeable = false;
+					alert(JSON.stringify(vm.$data));
+					
+					console.log(ref.selfintro);
+					var Self = document.getElementById("selfintro").innerHTML;
+					var Tech = document.getElementById("tech").innerHTML;
+					var TechExp = document.getElementById("techexp").innerHTML;
+					
+					$.ajax({
+						type:"post",
+						url:nebula + "/resume/updateResume",
+						beforeSend:function(request){
+							request.setRequestHeader("Authorization" ,localStorage.getItem("token"));
+							
+						},
+						data:{
+							name:ref.name,
+							sex:ref.sex,
+							Date:ref.Date,
+							height:ref.height,
+							weight:ref.weight,
+							marry:ref.marry,
+							city:ref.city,
+							education:ref.education,
+							tel:ref.tel,
+							email:ref.email,
+							eduexp:JSON.stringify(ref.eduexp),
+							workexp:JSON.stringify(ref.workexp),
+							place:ref.place,
+							position:ref.position,
+							money:ref.money,
+							selfintro:Self,
+							tech:Tech,
+							worktime:ref.worktime,
+							eduexpnum:ref.eduexpnum,
+							workexpnum:ref.workexpnum
+						},
+						success:function(json){
+							mui.toast('上传成功');
+						},
+						error:function(error){
+							console.log(JSON.stringify(error));
+							mui.toast("执行错误");
+						}
+					});
+				}
+			},
+			changephoto:function(s,e){
+				//alert("hello");
+				if(mui.os.plus){
+        			var a = [{title: "拍照"}, {title: "从手机相册选择"}];
+    				plus.nativeUI.actionSheet({title: "修改用户头像",cancel: "取消",buttons: a}, function(b) { /*actionSheet 按钮点击事件*/
+        			switch(b.index) {
+        				case 0:break;
+        				/*拍照*/
+        				case 1:getImages();break;
+        				/*打开相册*/
+        				case 2:galleryImages();break;
+        				default:break;
+        			}
+    				})
+    			}
+			},
+			changename:function(e){
+				mui.prompt('请输入新的用户名：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						vm.$data.name = e.value;
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div');
+			},
+			changesex:function(){
+				verPicker.show(function(items){
+					vm.$data.sex = items[0].text
+				})
+			},
+			changebirth:function(){
+				dtpick.show(function(items){
+					vm.$data.Date = items["value"]
+					//alert(items);
+				})
+			},
+			changeheight:function(){
+				verHeight.show(function(items){
+					vm.$data.height = items[0].text
+				})
+			},
+			changeweight:function(){
+				verWeight.show(function(items){
+					vm.$data.weight = items[0].text
+				})
+			},
+			changemarry:function(){
+				verMarry.show(function(items){
+					vm.$data.marry = items[0].text;
+				})
+			},
+			changecity:function(){
+				cityPicker.show(function(items){
+					vm.$data.city = items[0].text + items[1].text;
+				})
+			},
+			changeedu:function(){
+				eduPicker.show(function(items){
+					vm.$data.education = items[0].text;
+				})
+			},
+			changetel:function(e){
+				mui.prompt('请输入新的电话：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						if(checkPhone(e.value)){
+							vm.$data.tel = e.value;
+							//alert(tel);
+						}else{
+							mui.toast("输入正确格式的手机号码");
+						}	
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div');
+			},
+			changeemail:function(e){
+				mui.prompt('请输入新的邮箱：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						vm.$data.email = e.value;
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div');	
+			},
+			deleteexp:function(s,e){
+				var ref = this;
+				var obj=$(e.target);//触发事件的元素
+				var name=obj.attr("name");//元素的name属性
+				var element = null;
+				if(name == "eduexp"){
+					element = obj;
+				}else{
+					element=obj.parents("dl[name='eduexp']");
+				}
+				var Id=element.data("id");
+				mui.confirm("是否删除当前学历","通知消息",["取消","确认"],function(e){
+					if(e.index == 1){
+						var one;
+						for(one=0; one<ref.eduexpnum;one++)
+						{
+							if(ref.eduexp[one].id == Id)
+							{
+								ref.eduexp.splice(one,1);
+								return;
+							}
+						}
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div')	
+			},
+			updateschool:function(s,e){
+				var ref = this;
+				var obj = $(e.target); //触发事件的元素
+				var element = obj.parents("dl[name='eduexp']");
+				//找到当前的id
+				var Id = element.data("id");
+				mui.prompt('请输入学校名称：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						var one;
+						for(one=0; one<ref.eduexpnum;one++)
+						{
+							if(ref.eduexp[one].id == Id)
+							{
+								vm.$data.eduexp[one].uni = e.value;
+								return;
+							}
+						}
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div');
+			},
+			updatemajor:function(s,e){
+				var ref = this;
+				var obj = $(e.target); //触发事件的元素
+				var element = obj.parents("dl[name='eduexp']");
+				//找到当前的id
+				var Id = element.data("id");
+				//console.log(Id);
+				mui.prompt('请输入专业名称：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						var one;
+						for(one=0; one<ref.eduexpnum;one++)
+						{
+							if(ref.eduexp[one].id == Id)
+							{
+								//console.log(one);
+								vm.$data.eduexp[one].major = e.value;
+								return;
+							}
+						}
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div');
+			},
+			updateedu:function(s,e){
+				var ref = this;
+				var obj = $(e.target); //触发事件的元素
+				var element = obj.parents("dl[name='eduexp']");
+				//找到当前的id
+				var Id = element.data("id");
+				eduPicker.show(function(items){
+					var one;
+						for(one=0; one<ref.eduexpnum;one++)
+						{
+							if(ref.eduexp[one].id == Id)
+							{
+								vm.$data.eduexp[one].edu = items[0].text;
+								return;
+							}
+						}
+				})
+			},
+			updategra_year:function(s,e){
+				var ref = this;
+				var obj = $(e.target); //触发事件的元素
+				var element = obj.parents("dl[name='eduexp']");
+				//找到当前的id
+				var Id = element.data("id");
+				//console.log(Id);
+				gradepick.show(function(items){
+					var one;
+						for(one=0; one<ref.eduexpnum;one++)
+						{
+							if(ref.eduexp[one].id == Id)
+							{
+								vm.$data.eduexp[one].gra_year = items["value"];
+								return;
+							}
+						}
+				})
+			},
+			addedu:function(){
+				var ref = this;
+				var num = ref.eduexpnum+1;
+				ref.eduexpnum++;
+				var obj = {
+					id:num,
+					uni:"",
+					major:"",
+					edu:"",
+					gra_year:""
+				}
+				ref.eduexp.push(obj);
+			},
+			deleteworkexp:function(s,e){
+				var ref = this;
+				var obj=$(e.target);//触发事件的元素
+				var name=obj.attr("name");//元素的name属性
+				var element = null;
+				if(name == "workexp"){
+					element = obj;
+				}else{
+					element=obj.parents("dl[name='workexp']");
+				}
+				var Id=element.data("id");
+				mui.confirm("是否删除当前工作经历","通知消息",["取消","确认"],function(e){
+					if(e.index == 1){
+						var one;
+						for(one=0; one < ref.workexpnum;one++)
+						{
+							if(ref.workexp[one].id == Id)
+							{
+								ref.workexp.splice(one,1);
+								return;
+							}
+						}
+					}
+				})	
+			},
+			updatecompany:function(s,e){
+				var ref = this;
+				var obj = $(e.target); //触发事件的元素
+				var element = obj.parents("dl[name='workexp']");
+				//找到当前的id
+				var Id = element.data("id");
+				console.log(Id);
+				mui.prompt('请输入公司名称：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						var one;
+						for(one=0; one < ref.workexpnum;one++)
+						{
+							if(ref.workexp[one].id == Id)
+							{
+								vm.$data.workexp[one].company = e.value;
+								return;
+							}
+						}
+					}else{
+						mui.toast("你点击了取消");
+					}
+				});
+			},
+			updatehire:function(s,e){
+				var ref = this;
+				var obj = $(e.target); //触发事件的元素
+				var element = obj.parents("dl[name='workexp']");
+				var Id = element.data("id");
+				console.log(Id);
+				gradepick.show(function(items){
+					var one;
+						for(one=0; one < ref.workexpnum;one++)
+						{
+							if(ref.workexp[one].id == Id)
+							{
+								vm.$data.workexp[one].hiretime = items["value"];
+								return;
+							}
+						}
+				})
+			},
+			updateleave:function(s,e){
+				var ref = this;
+				var obj = $(e.target); //触发事件的元素
+				var element = obj.parents("dl[name='workexp']");
+				//找到当前的id
+				var Id = element.data("id");
+				gradepick.show(function(items){
+					var one;
+						for(one=0; one < ref.workexpnum;one++)
+						{
+							if(ref.workexp[one].id == Id)
+							{
+								vm.$data.workexp[one].leavetime = items["value"];
+								return;
+							}
+						}
+				})
+			},
+			updatecontent:function(s,e){
+				var ref = this;
+				var obj = $(e.target); //触发事件的元素
+				var element = obj.parents("dl[name='workexp']");
+				//找到当前的id
+				var Id = element.data("id");
+				mui.prompt('请输入工作经历：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						var one;
+						for(one=0; one < ref.workexpnum;one++)
+						{
+							if(ref.workexp[one].id == Id)
+							{
+								var tmp = document.querySelector('.mui-popup-input textarea').value;
+								vm.$data.workexp[one].workcontent = tmp;
+								return;
+							}
+						}
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div');
+				var tt = document.querySelector('.mui-popup-input');
+				tt.innerHTML = "<textarea autofocus='' rows='8'></textarea>";
+			},
+			addwork:function(){
+				var ref = this;
+				var num = ref.workexpnum+1;
+				ref.workexpnum++;
+				var obj = {
+					id:num,
+					company:"",
+					hiretime:"",
+					leavetime:"",
+					workcontent:""
+				}
+				ref.workexp.push(obj);
+			},
+			workset:function(){
+				cityPicker.show(function(items){
+					vm.$data.place = items[0].text + items[1].text;
+				})
+			},
+			moneyset:function(e){
+				mui.prompt('请输入预期工资：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						vm.$data.money = e.value;
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div');
+			},
+			positionset:function(e){
+				mui.prompt('请输入预期职位：',"",'提示',btnArray,function(e){
+					if(e.index == 0){
+						vm.$data.position = e.value;
+					}else{
+						mui.toast("你点击了取消");
+					}
+				},'div');
+			},
+			timeset:function(){
+				timepicker.show(function(items){
+					vm.$data.worktime = items[0].text;
+				})
+			},
+			updateselfintro:function(){
+				if(changeable == false)
+				{
+					mui.toast("点击修改再修改");
+					return;
+				}
+				var ref = this;
+				var artEditor = new Eleditor({
+					el:"#selfintro",
+					toolbars:[
+						'insertText',
+						'editText',
+						'insertLink',
+						'insertHr',
+						'delete',
+						'cancel'
+					],
+					changer: function(){
+						console.log('文档修改');
+					},
+				});
+			},
+			updatetech:function(){
+				if(changeable == false)
+				{
+					mui.toast("点击修改再修改");
+					return;
+				}
+				var ref = this;
+				var artEditor = new Eleditor({
+					el:"#tech",
+					toolbars:[
+						'insertText',
+						'editText',
+						'insertLink',
+						'insertHr',
+						'delete',
+						'cancel'
+					],
+					changer: function(){
+						console.log('文档修改');
+					},
+				});
+			},
+			updatetechexp:function(){
+				if(changeable == false)
+				{
+					mui.toast("点击修改再修改");
+					return;
+				}
+				var ref = this;
+				var artEditor = new Eleditor({
+					el:"#techexp",
+					toolbars:[
+						'insertText',
+						'editText',
+						'insertLink',
+						'insertHr',
+						'delete',
+						'cancel'
+					],
+					changer: function(){
+						console.log('文档修改');
+					},
+				});
+			}
+		},
+		created:function(){
+			var ref = this;
+			
+			var img = document.getElementById("userphoto");
+			img.style.backgroundImage = "url(" + "http://192.168.43.157:9800/" + localStorage.getItem("username")+".jpg)"; 
+						
+			$.ajax({
+				type:"post",
+				url:nebula + "/resume/searchResume",
+				beforeSend:function(request){
+					request.setRequestHeader("Authorization" ,localStorage.getItem("token"))
+				},
+				success:function(json){
+					if(json.code==200 && json.result == true){
+						mui.toast(json.data.city);
+						//console.log("asa: " + JSON.stringify(json.data));
+						//alert(json.data.eduexpnum);
+						//alert(this.data.name);
+						ref.name= json.data.name;
+						ref.sex= json.data.sex;
+						ref.Date = json.data.Date;
+						ref.height= json.data.height;
+						ref.weight = json.data.weight;
+						ref.marry = json.data.marry;
+						ref.city = json.data.city;
+						ref.education = json.data.education;
+						ref.tel = json.data.tel;
+						ref.email = json.data.email;
+						ref.eduexp = json.data.eduexp;
+						ref.workexp = json.data.workexp;
+						ref.place = json.data.place;
+						ref.money = json.data.money;
+						ref.position = json.data.position;
+						ref.worktime = json.data.worktime;
+						ref.workexpnum = json.data.workexpnum;
+						ref.eduexpnum = json.data.eduexpnum;
+						ref.selfintro = json.data.selfintro;
+						ref.tech = json.data.tech;
+//						var img = document.getElementById("userphoto");
+//						img.style.backgroundImage = "url(" + "http://192.168.43.157:9800/" + localStorage.getItem("username")+".jpg)"; 
+//						//ref.techexp = json.data.techexp;
+					}
+				},
+				error:function(error){
+					console.log(JSON.stringify(error));
+					mui.toast("执行错误");
+				}
+			});
+		},
+		filters:{
+			isnull:function(index){
+				if(index == "")
+					return "请填写"
+				else
+					return index;
+			},
+			filterheight:function(index){
+				if(index == "")
+					return "请填写"
+				else
+					return index + "cm"; 
+			},
+			filterweight:function(index){
+				if(index == "")
+					return "请填写"
+				else
+					return index + "kg"; 
+					
+			}
+		}
+	})
+});
+
+mui.plusReady(function(){
+	plus.navigator.setStatusBarBackground("#007AFF");//顶部状态栏背景色
+	plus.navigator.setStatusBarStyle("light");//顶部文字白色
+	plus.screen.lockOrientation("portrait-primary");//禁止横屏转换
+	//隐藏滚动条
+	plus.webview.currentWebview().setStyle({
+		scrollIndicator:'none'
+	})
+	
+	
+});
+
+
+
+mui.init({
+});
+
+
+function getImages(){
+        var mobileCamera=plus.camera.getCamera();
+        mobileCamera.captureImage(function(e){
+            plus.io.resolveLocalFileSystemURL(e,function(entry){
+                uploadHeadImg(entry.toLocalURL());
+            },function(err){
+                console.log("读取拍照文件错误");
+            });
+        },function(e){
+            console.log("er",err);
+        },function(){
+            filename:'_doc/head.png';
+        });
+    }
+
+//从本地相册选择
+    function galleryImages(){
+        console.log("你选择了从相册选择");
+        plus.gallery.pick(function(a){
+            plus.io.resolveLocalFileSystemURL(a,function(entry){
+                plus.io.resolveLocalFileSystemURL('_doc/',function(root){
+                    root.getFile('head.png',{},function(file){
+                        //文件已经存在
+                        file.remove(function(){
+                            console.log("文件移除成功");
+                            entry.copyTo(root,'head.png',function(e){
+                                var path=e.fullPath+'?version='+new Date().getTime();
+                                uploadHeadImg(path);
+                            },function(err){
+                                console.log("copy image fail: ",err);
+                            });
+                        },function(err){
+                            console.log("删除图片失败：（"+JSON.stringify(err)+")");
+                        });
+                    },function(err){
+                        //打开文件失败
+                        entry.copyTo(root,'head.png',function(e){
+                            var path=e.fullPath+'?version='+new Date().getTime();
+                            uploadHeadImg(path);
+                        },function(err){
+
+                            console.log("上传图片失败：（"+JSON.stringify(err)+")");
+                        });
+                    });
+                },function(e){
+                    console.log("读取文件夹失败：（"+JSON.stringify(err)+")");
+                });
+            });
+        },function(err){
+            console.log("读取拍照文件失败: ",err);
+        },{
+            filter:'image'
+        });
+    };
+
+
+//上传图片
+    function uploadHeadImg(imgPath){
+        //选中图片之后，头像当前的照片变为选择的照片hehe
+        var mainImg=document.getElementById('userphoto');
+        mainImg.style.backgroundImage = "url(" +imgPath+")"; 
+        //mainImg.src=imgPath;
+
+
+        var images=new Image();
+        images.src=imgPath;
+        var imgData
+        images.onload = function(){
+        	imgData=getBase64Image(images);
+        	$.ajax(nebula+'/resume/upload',{
+            data:{
+                'file':imgData
+            },
+            beforeSend:function(request){
+				request.setRequestHeader("Authorization" ,localStorage.getItem("token"));
+							
+			},
+            dataType:'json',
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            success:function(json){
+                if(json.data=='1' && json.code == 200){
+                    mui.alert('上传成功！');
+                }
+            },
+            error:function(error){
+                mui.toast(JSON.stringify(error))
+            }
+        });
+        }
+        
+    }
+   
+
+//压缩图片转成base64
+    function getBase64Image(img){
+        var canvas=document.createElement("canvas");
+        var width=img.width;
+        var height=img.height;
+        if(width>height){
+            if(width>200){
+                height=Math.round(height*=200/width);
+                width=200;
+            }
+        }else{
+            if(height>200){
+                width=Math.round(width*=200/height);
+            }
+            height=200;
+        }
+        canvas.width=width;
+        canvas.height=height;
+        var ctx=canvas.getContext('2d');
+        ctx.drawImage(img,0,0,width,height);
+        var dataUrl=canvas.toDataURL("image/png", 0.8);
+        
+        alert(dataUrl);
+        return dataUrl.replace("data:image/png;base64,","");
+    }

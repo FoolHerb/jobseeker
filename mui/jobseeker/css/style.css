@@ -1,0 +1,18 @@
+*{
+	font-family: "微软雅黑" !important;
+}
+
+header{
+	/*阴影*/
+	box-shadow: none !important;
+	background-color: #007aff !important;
+}
+
+header h1{
+	color: #FFFFFF !important;
+}
+
+header a{
+	color: #fff;
+	font-family: Muiicons !important;
+}

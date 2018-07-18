@@ -1,0 +1,30 @@
+{
+  "login.html": {
+    "refer": [
+      "index.html"
+    ],
+    "resources": []
+  },
+  "index.html": {
+    "resources": [
+      "img/1Gz20180702093605.png"
+    ],
+    "refer": [
+      "recruit/recruit_list.html",
+      "jobDetails/jobDetails.html",
+      "resume/resume.html"
+    ]
+  },
+  "jobDetails/jobDetails.html": {
+    "refer": [
+      "companyIntroduction/companyIntroduction.html"
+    ],
+    "resources": []
+  },
+  "recruit/recruit_list.html": {
+    "refer": [
+      "jobDetails/jobDetails.html"
+    ],
+    "resources": []
+  }
+}

@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+	</head>
+
+	<body>
+		<div id = "app">
+			<p>{{address}}</p>
+			<p>
+				<input type = "text" placeholder="用户名" v-model="username"/>
+			</p>
+			<p>{{username}}</p>
+			<p>
+				<select v-model="city">
+					<option value="北京">北京</option>
+					<option value="上海">上海</option>
+					<option value="广州">广州</option>
+				</select>
+			</p>
+			<p>{{city}}</p>
+			<p>
+				<input type="checkbox" value="管理员" v-model="role" />管理员
+				<input type="checkbox" value="企业用户" v-model="role" />企业用户
+				<input type="checkbox" value="求职者" v-model="role" />求职者
+			</p>
+			<p>{{role}}</p>
+			<p>
+				<input type="text" v-model="age" placeholder="年龄" />
+			</p>
+			<p v-if="age>=18"><button>报名</button></p>
+			<p v-if="age<18">不允许报名</p>
+			<table>
+				<tr>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+				<tr v-for="one in student">
+					<td>{{one.name|hideName}}</td>
+					<td>{{one.sex}}</td>
+					<td>{{one.age}}</td>
+					
+				</tr>
+			</table>
+			<button v-tap="{method:sayhello}">hello</button>
+			<p :title="level">hello world</p>
+			
+			<i class="iconfont icon-addressbook"></i>
+			<i class="iconfont icon-brush"></i>
+			<i class="iconfont icon-businesscard_fill"></i>
+			<i class="iconfont icon-collection"></i>
+			<i class="iconfont icon-collection_fill"></i>
+			<i class="iconfont icon-computer"></i>
+			<i class="iconfont icon-coordinates_fill"></i>
+			<i class="iconfont icon-customerservice"></i>
+			<i class="iconfont icon-document"></i>
+			<i class="iconfont icon-enter"></i>
+			<i class="iconfont icon-flag_fill"></i>
+			<i class="iconfont icon-group_fill"></i>
+			<i class="iconfont icon-lock"></i>
+			<i class="iconfont icon-people"></i>
+			<i class="iconfont icon-redpacket_fill"></i>
+			<i class="iconfont icon-refresh"></i>
+			<i class="iconfont icon-return"></i>
+			<i class="iconfont icon-search"></i>
+			<i class="iconfont icon-task_fill"></i>
+			<i class="iconfont icon-tasklist"></i>
+			<i class="iconfont icon-transaction_fill"></i>
+			<i class="iconfont icon-video"></i>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue_tap.js" ></script>
+		<script type="text/javascript" src="demo_2.js" ></script>
+		
+	</body>
+
+</html>

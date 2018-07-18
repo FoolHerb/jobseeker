@@ -1,0 +1,46 @@
+{
+	"login.html": {
+		"refer": [
+			"index.html",
+			"password/password.html"
+		],
+		"resources": [
+			"img/banner.png",
+			"css/mui.min.css",
+			"css/style.css"
+		]
+	},
+	"index.html": {
+		"resources": [
+			"img/1Gz20180702093605.png"
+		],
+		"refer": [
+			"recruit/recruit_list.html",
+			"jobDetails/jobDetails.html",
+			"resume/resume.html",
+			"mailverify/mailverify.html"
+		]
+	},
+	"jobDetails/jobDetails.html": {
+		"refer": [
+			"companyIntroduction/companyIntroduction.html"
+		],
+		"resources": []
+	},
+	"recruit/recruit_list.html": {
+		"refer": [
+			"jobDetails/jobDetails.html"
+		],
+		"resources": []
+	},
+	"password/password.html": {
+		"refer": [
+			"login.html"
+		]
+	},
+	"mailverify/mailverify.html": {
+		"refer": [
+			"index.html"
+		]
+	}
+}

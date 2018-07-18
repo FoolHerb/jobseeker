@@ -1,3 +1,23 @@
 # jobseeker
 
-![image](image/lihao.jpg)
+![image](images/lihao.jpg)
+
+登陆界面
+
+![login](images/login.jpg)
+
+主界面
+
+![index](images/index.jpg)
+
+招聘信息
+
+![recruit](images/recruit.jpg)
+
+职位详情
+
+![job_detail](images/job_detail.jpg)
+
+公司详情
+
+![company_detail]()images/company_detail.jpg)

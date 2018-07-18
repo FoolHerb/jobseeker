@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="resume.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的简历</h1>
+		</header>
+		<div class="underblock"></div>
+		<div id = "info" class="mui-content">
+			
+			<div class="resume">
+				<div id = "changebutton" v-tap="{fn:change}" class="operate">修改</div>
+				<div class="userinfo1">
+					<dl>
+						<dt>
+							<a v-tap="{fn:changephoto}" class="mui-control-item" id="photo">
+								<h4>头像</h4>
+								<div id = "userphoto" class="photo"><i id = "photoid" class="iconfont icon-enter"></i></div>	
+							</a>
+						</dt>
+						<dt>
+							<a id = "name" v-tap="{fn:changename}">
+								<span class="label">姓名</span>
+								<span class="name" >{{name}}<i class="iconfont icon-enter"></i></span>	
+							</a>
+						</dt>
+						<dt>
+							<a>
+								<span class="label">实名认证</span>
+								<span class="name">无<i class="iconfont icon-enter"></i></span>
+							</a>	
+						</dt>
+					</dl>
+				</div>
+				<div class="userinfo2">
+					<dl>
+						<dt class="basicinfo">
+							基本资料
+						</dt>
+						<dt>
+							<a class="mui-control-item" v-tap="{fn:changesex}">
+								<span class="label">性别</span>
+								<span class="name">{{sex}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a class="mui-control-item" v-tap="{fn:changebirth}">
+								<span class="label">生日</span>
+								<span class="name">{{Date}}<i class="iconfont icon-enter"></i></span>	
+							</a>
+						</dt>
+						<dt>
+							<a class="mui-control-item" v-tap="{fn:changeheight}">
+								<span class="label">身高</span>
+								<span class="name">{{height|filterheight}}<i class="iconfont icon-enter"></i></span>
+							</a>	
+						</dt>
+						<dt>
+							<a class="mui-control-item" v-tap="{fn:changeweight}">
+								<span class="label">体重</span>
+								<span class="name">{{weight|filterweight}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a class="mui-control-item" v-tap="{fn:changemarry}">
+								<span class="label">婚姻状况</span>
+								<span class="name">{{marry}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a class="mui-control-item"  v-tap="{fn:changecity}">
+								<span class="label">籍贯</span>
+								<span class="name">{{city}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a class="mui-control-item" v-tap="{fn:changeedu}">
+								<span class="label">学历</span>
+								<span class="name">{{education}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a v-tap="{fn:changetel}">
+								<span class="label">电话</span>
+								<span class="name">{{tel}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a v-tap="{fn:changeemail}">
+								<span class="label">邮箱</span>
+								<span class="name">{{email}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+					</dl>
+				</div>
+				<div class="userinfo2">
+					<dl name = "eduexp" v-for="one in eduexp" v-longtap="{fn:deleteexp}" :data-id = "one.id">
+						<dt class="basicinfo">
+							教育经历
+						</dt>
+						<dt>
+							<a v-tap="{fn:updateschool}">
+								<span class="label">毕业学校</span>
+								<span class="name">{{one.uni|isnull}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a v-tap="{fn:updatemajor}">
+								<span class="label">所学专业</span>
+								<span class="name">{{one.major|isnull}}<i class="iconfont icon-enter"></i></span>	
+							</a>
+						</dt>
+						<dt>
+							<a v-tap="{fn:updateedu}">
+								<span class="label">学历</span>
+								<span class="name">{{one.edu|isnull}}<i class="iconfont icon-enter"></i></span>	
+						</dt>
+						<dt>
+							<a v-tap="{fn:updategra_year}">
+								<span class="label">毕业年份</span>
+								<span class="name">{{one.gra_year|isnull}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+					</dl>
+					<dl>
+						<dt>
+							<div v-tap="{fn:addedu}" class="add">
+								+
+							</div>
+						</dt>
+					</dl>
+				</div>
+				<div class="userinfo2">
+					<dl name = "workexp" v-for="one in workexp" v-longtap="{fn:deleteworkexp}" :data-id = "one.id">
+						<dt class="basicinfo">
+							工作经历
+						</dt>
+						<dt>
+							<a v-tap="{fn:updatecompany}">
+								<span class="label">企业名称</span>
+								<span class="name">{{one.company}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a v-tap="{fn:updatehire}">
+								<span class="label">入职时间</span>
+								<span class="name">{{one.hiretime}}<i class="iconfont icon-enter"></i></span>	
+							</a>
+						</dt>
+						<dt>
+							<a v-tap="{fn:updateleave}">
+								<span class="label">离职时间</span>
+								<span class="name">{{one.leavetime}}<i class="iconfont icon-enter"></i></span>	
+						</dt>
+						<dt>
+							<a v-tap="{fn:updatecontent}">
+								<span class="label">工作内容</span>
+								<span class="name">请填写(下方显示)<i class="iconfont icon-enter"></i></span>
+							</a>
+							<div class="content" name="content">
+								{{one.workcontent}}
+							</div>
+						</dt>
+					</dl>
+					<dl>
+						<dt>
+							<div v-tap="{fn:addwork}" class="add">
+								+
+							</div>
+						</dt>
+					</dl>
+				</div>
+				<div class="userinfo2">
+					<dl>
+						<dt class="basicinfo">
+							自我介绍
+						</dt>
+						<dt>
+							<a v-tap="{fn:updateselfintro}">
+								<span class="label">请填写</span>
+								<span class="name"><i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<div id = "selfintro" class="content" name="content" v-html="selfintro">
+							</div>
+						</dt>
+					</dl>
+				</div>
+				<div class="userinfo2">
+					<dl>
+						<dt class="basicinfo">
+							技术自评
+						</dt>
+						<dt>
+							<a v-tap="{fn:updatetech}">
+								<span class="label">请填写</span>
+								<span class="name"><i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<div id = "tech" class="content" name="content" v-html="tech">
+							</div>
+						</dt>
+					</dl>
+				</div>
+				<div class="userinfo2">
+					<dl>
+						<dt class="basicinfo">
+							技术经验
+						</dt>
+						<dt>
+							<a v-tap="{fn:updatetechexp}">
+								<span class="label">请填写</span>
+								<span class="name"><i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<div id = "techexp" class="content" name="content" v-html="techexp">
+							</div>
+						</dt>
+					</dl>
+				</div>
+				<div class="userinfo2">
+					<dl>
+						<dt class="basicinfo">
+							求职要求
+						</dt>
+						<dt>
+							<a v-tap="{fn:workset}">
+								<span class="label">工作地点</span>
+								<span class="name">{{place}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+						<dt>
+							<a v-tap="{fn:moneyset}">
+								<span class="label">薪资要求</span>
+								<span class="name">{{money}}<i class="iconfont icon-enter"></i></span>	
+							</a>
+						</dt>
+						<dt>
+							<a v-tap="{fn:positionset}">
+								<span class="label">求职岗位</span>
+								<span class="name">{{position}}<i class="iconfont icon-enter"></i></span>	
+						</dt>
+						<dt>
+							<a v-tap="{fn:timeset}">
+								<span class="label">入职时间</span>
+								<span class="name">{{worktime}}<i class="iconfont icon-enter"></i></span>
+							</a>
+						</dt>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../js/mui.picker.min.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-touch.js" ></script>
+		<script type="text/javascript" src="../js/regexp.js" ></script>
+		<script type="text/javascript" src="../js/data.js" ></script>
+		<script type="text/javascript" src="../js/resource.js" ></script>
+		<script type="text/javascript" src="../js/citydata.js" ></script>
+		<script type="text/javascript" src="../js/Eleditor.js" ></script>
+		<script type="text/javascript" src="resume.js" ></script>
+	</body>
+
+</html>

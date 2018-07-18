@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="jobDetails.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">职位详情</h1>
+		</header>
+		<div id="app" class="mui-content">
+		    <div class="recruit_details">
+		    	<dl class="job_name_salary">
+		    		<dt class="name">
+		    			{{job}}
+		    		</dt>
+		    		<dt class="salary">
+		    			{{salary}}
+		    		</dt>
+		    	</dl>
+		    	<dl class="job_location_time">
+		    		<dt class="location">
+		    			<i class="iconfont icon-coordinates_fill"></i>
+		    			{{city}}
+		    		</dt>
+		    		<dt class="limit">
+		    			<i class="iconfont icon-questions"></i>
+		    			{{education}}
+		    		</dt>
+		    		<dt class="time">
+		    			<i class="iconfont icon-document"></i>
+		    			{{date}}
+		    		</dt>
+		    	</dl>
+		    	<img id="logo" style="position: absolute; height: 60px; left: 30px;"/>
+		    	<dl class="company" v-tap  = "{fn:toCompany}">
+		    		<div id="log" class="photo"></div>
+		    		<dl>
+		    			<dt class="company_name">{{companyName}}</dt>
+		    			<dt class="company_detail">{{companyDetails}}</dt>
+		    		</dl>
+		    		<i class="iconfont icon-enter" style="color: #bbbbbb; position: absolute; top: 20px; right: -10px; font-size: 45px;"></i>
+		    	</dl>
+		    	<dl class="welfare">
+		    		<dt>
+		    			<span v-for="one in welfare1">{{one}}</span>
+		    		</dt>
+		    		<dt>
+						<span v-for="one in welfare2">{{one}}</span>
+		    		</dt>
+		    	</dl>
+		    </div>
+		    <div v-html="description" class="job_description">
+		    </div>
+		    <div class="send_resume" v-tap = "{fn:sendResume}">投递简历</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/regexp.js" ></script>
+		<script type="text/javascript" src="../js/resource.js" ></script>
+		<script type="text/javascript" src="../js/jquery-3.3.1.min.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-touch.js" ></script>
+		<script type="text/javascript" src="jobDetails.js" ></script>
+	</body>
+
+</html>

@@ -1,0 +1,165 @@
+.recruit_details{
+	background-color: #fff;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 10px;
+}
+
+.recruit_details .job_name_salary{
+	margin-top: 15px;
+	padding-top: 15px;
+	border-bottom: dashed 1px #BBBBBB;
+	margin-bottom: 10px;
+}
+
+.recruit_details dl{
+	padding-left: 20px;
+}
+
+.recruit_details .name{
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+.recruit_details .salary{
+	color: red;
+	margin-bottom: 10px;
+		font-size: 18px;
+}
+
+.recruit_details .job_location_time{
+	display: flex;
+	color: #929292;
+	border-bottom: dashed 1px #BBBBBB;
+	padding-bottom: 10px;
+	margin-top: 0px;
+		font-size: 14px;
+}
+
+.recruit_details dt{
+	
+}
+
+.recruit_details .job_location_time .location{
+}
+
+.recruit_details .job_location_time .time{
+	text-align: right;
+	padding-right: 20px;
+	position: absolute;
+	right: 5px;
+
+}
+
+.recruit_details .job_location_time .limit{
+	padding-left: 20px;
+}
+
+.recruit_details .company .photo{
+	width : 60px;
+	height: 60px;
+	margin-bottom: 0px;
+	background-size: cover;
+	margin-right: 15px;
+	
+}
+
+.recruit_details .company{
+	display: flex;
+	border-bottom: dashed 1px #929292;
+	position: relative;
+	flex-grow: 1;
+}
+
+.recruit_details .company dl{
+	padding-left: 0;
+	margin-top: 5px;
+}
+
+.recruit_details .company .company_name{
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.recruit_details .company .company_detail{
+	color: #929292;
+	font-size: 14px;
+}
+
+.recruit_details .welfare{
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 10px;
+}
+
+.recruit_details .welfare dt{
+	display: flex;
+	margin-bottom: 10px;
+	flex-grow: 1;
+}
+
+.recruit_details .welfare span{
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle !important;
+	width: 60px;
+	height: 25px;
+	line-height: 25px;
+	color: #666666;
+	background-color: #DDDDDD;
+	border-radius: 5px;
+	flex-grow: 1;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-size: 12px;
+}
+
+.job_description{
+	background-color: #fff;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 10px;
+	color: #999999;
+	font-size: 14px;
+	line-height: 25px;
+	padding-bottom: 5px;
+}
+
+.job_description div{
+	color: #000000 !important;
+	font-size: 16px;
+	border-bottom: dashed 1px #BBBBBB;
+	padding: 10px;
+	padding-left: 20px;
+}
+
+.job_description span{
+	display: inline-block;
+	color: #000000;
+	padding-bottom: 10px;
+	position: absolute;
+	left: 20px;
+	top: -20px;
+}
+
+.job_description ol{
+	margin-top: 30px;
+	position: relative;
+	padding: 10px;
+	padding-left: 40px;
+	margin-bottom: 0px;
+}
+
+.send_resume{
+	color: #fff;
+	background-color: #0099ff;
+	margin: 10px;
+	border-radius: 10px;
+	text-align: center;
+	height: 40px;
+	font-size: 18px;
+	line-height: 40px;
+	padding-bottom: 0px;
+}

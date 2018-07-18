@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="mailverify.css" />
+	</head>
+
+	<body>
+		<div id="app">
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">邮箱设置</h1>
+		    <div class="pass" v-tap="{fn:pass}">跳过</div>
+		</header>
+		<div class="mui-content">
+		    
+		    <div class="textinput">
+		    	<p>您的账户有丢失风险<br>请输入邮箱待找回密码时使用</p>
+		    	<input type="text" placeholder="输入邮箱" v-model="email"/>
+		    	<input class="verify" type="button" value="确定" v-tap="{fn:setEmail}" />
+		    </div>
+		</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-touch.js" ></script>
+		<script type="text/javascript" src="../js/resource.js" ></script>
+		<script type="text/javascript" src="../js/jquery-3.3.1.min.js" ></script>
+		<script type="text/javascript" src="mailverify.js" ></script>
+	</body>
+
+</html>

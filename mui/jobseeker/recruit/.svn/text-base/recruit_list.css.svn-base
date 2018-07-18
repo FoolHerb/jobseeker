@@ -1,0 +1,151 @@
+.mui-bar{
+	height: 100px;
+	padding: 0;
+}
+
+.search{
+	background-color: #007aff;
+	height: 60px;
+	z-index: 6;
+}
+
+.search input{
+	width: 90%;
+	height: 30px;
+	margin-left: 5%;
+	margin-top: 10px;
+	border-radius: 20px;
+	font-size: 14px;
+}
+
+.search i{
+	right: 30px;
+	top: 60px;
+	font-size: 24px;
+	color: #929292;
+}
+
+.search .func{
+	
+}
+
+.search dl{
+	display: flex;
+	flex-grow: 1;
+	color: #929292;
+	justify-content: space-between;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 14px;
+	background-color: #DDDDDD;
+	margin: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.search .line{
+	margin: 0;
+	border-right: solid 1px ;
+}
+
+.recruit_container{ 
+	margin-top: 100px;
+}
+
+.recruit_container dl{
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.recruit_container dt{
+	background-color: #fff;
+	display: flex;
+	padding: 15px;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.recruit_container .squre{
+	width: 70px;
+	height: 70px;
+	background-color: #ccc;
+	text-align: center;
+	line-height: 70px;
+	font-size: 30px;
+	color: #333;
+	margin-right: 15px;
+}
+
+.recruit_container ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font-size: 15px;
+	color: #333;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	/*对齐方式*/
+}
+
+.recruit_container li{
+	overflow: hidden;
+}
+
+.recruit_container .job{
+	float: left;
+	/*向右浮动*/
+	font-size: 18px;
+}
+
+.recruit_container .date{
+	float: right;
+	color: #555;
+}
+
+.recruit_container .company{
+	float: left;
+	color: #555;
+}
+
+.recruit_container .salary{
+	float: right;
+	color: red;
+}
+
+.recruit_container .welfare{
+	color: #555;
+	font-size: 14px;
+	margin-right: 5px;
+}
+
+.recruit_container .education{
+	color: #555;
+	font-size: 14px;
+	margin-right: 5px;
+}
+
+.recruit_container .city{
+	color: #555;
+	font-size: 14px;
+	margin-right: 5px;
+}
+
+.recruit_container .iconfont{
+	color: #999;
+	font-size: 16px;
+}
+
+.recruit_container .tag{
+	font-size: 13px;
+	background-color: #31bd80;
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	width: 60px;
+	right: 0;
+	text-align: center;
+	height: 26px;
+	line-height: 26px;
+}

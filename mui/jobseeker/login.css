@@ -1,0 +1,96 @@
+html{
+	height: 100%;
+}
+
+body{
+	/*继承*/
+	height: inherit;
+	background-color: #fff;
+}
+
+.mui-content{
+	/*important 强制执行*/
+	background-color: #fff !important;
+}
+
+.banner{
+	/*去灰边，inline模型改为block模型，让他独占一行*/
+	display: block;
+}
+
+.tab{
+	/*水平布局*/
+	display: flex;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-top: 35px;
+}
+
+.tab dd{
+	/*左填充*/
+	margin-left: 0;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+.tab dd .line{
+	border-left: solid 1px #555;
+	height: 20px;
+}
+
+.tab dt{
+	/*弹性布局*/
+	flex-grow: 1;
+	/*文字居中*/
+	text-align: center;
+	border-bottom: solid 2px #FFFF;
+	padding-bottom: 10px;
+	color: #555 ;
+}
+
+.tab .active{
+	border-bottom: solid 2px #007aff;
+}
+
+.loginPanel,.registerPanel {
+	margin-right: 40px;
+	margin-left: 40px;
+}
+
+.loginPanel [type="text"] , .registerPanel [type="text"]{
+	font-size: 16px;
+	border-left: none;
+	border-top: none;
+	border-right: none;
+	border-bottom: solid 1px #999;
+	margin-bottom: 10px;
+	color: #555 ;
+	border-radius: 0;
+}
+
+.loginPanel [type="password"] , .registerPanel [type="password"]{
+	font-size: 16px;
+	border-left: none;
+	border-top: none;
+	border-right: none;
+	border-bottom: solid 1px #999;
+	color: #555;
+	border-radius: 0;
+}
+
+.loginPanel [type="button"] , .registerPanel [type="button"]{
+	width: 100%;
+	border: none;
+	background-color: #007aff;
+	color: #FFF;
+	line-height: 28px;
+	font-size: 15px;
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+
+.loginPanel a{
+	font-size: 15px;
+}
+
+

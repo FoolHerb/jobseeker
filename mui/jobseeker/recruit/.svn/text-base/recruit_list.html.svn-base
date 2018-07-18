@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="recruit_list.css" />
+	</head>
+
+	<body >
+		<div id="app">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="left: 10px;"></a>
+		    <h1 class="mui-title">企业招聘</h1>
+		    <div class="search">
+		    	<input type="text"  placeholder="工作/企业名称/地点" v-model="key"><i v-tap="{fn:search}" class="iconfont icon-search" style="position: absolute; width: 30px; height: 30px; "></i></input>
+		    	<dl>
+		    		<dt class="func">智能排序</dt>
+		    		<dd class="line"></dd>
+		    		<dt class="func" v-tap="{fn:orderByDate}">日期</dt>
+		    		<dd class="line"></dd>
+		    		<dt class="func" v-tap="{fn:order}">月薪</dt>
+		    		<dd class="line"></dd>
+		    		<dt class="func">职位</dt>
+		    		<dd class="line"></dd>
+		    		<dt class="func">口碑</dt>
+		    	</dl>
+		    </div>
+		</header>
+		<div  class="mui-content">
+
+		
+			<div class="recruit_container">
+	
+				<dl v-if="recruit!=null&&recruit.length>0">
+					<dt name = "recruit" v-for="one in recruit" v-longtap = "{fn:sendResume}" v-tap = "{fn:toJobDetails}" :data-id="one.id">
+						<div class="squre">前</div>
+						<ul>
+							<li>
+								<span class="job">{{one.job}}</span>
+								<span class="date">{{one.date}}</span>
+							</li>
+							<li>
+								<span class="company">{{one.name}}</span>
+								<span class="salary">{{one.salary}}</span>
+							</li>
+							<li>
+								<i class="iconfont icon-coordinates_fill"></i>
+								<span class="city">{{one.city}}</span>
+								<i class="iconfont icon-people_fill"></i>
+								<span class="education">{{one.education}}</span>
+								<i class="iconfont icon-transaction_fill"></i>
+								<span class="welfare">{{one.welfare|welfareFilter}}</span>
+							</li>
+						</ul>
+						<div class="tag" v-if="one.sended == 1">已投递</div>
+					</dt>
+				</dl>
+				<p v-if="recruit==null||recruit.length==0" align="center">没有数据</p>
+			</div>
+</div>
+</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery-3.3.1.min.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-touch.js" ></script>
+		<script type="text/javascript" src="../js/resource.js" ></script>
+		<script type="text/javascript" src="recruit_list.js" ></script>
+	</body>
+	
+</html>
